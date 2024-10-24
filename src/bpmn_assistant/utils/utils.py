@@ -9,6 +9,7 @@ from bpmn_assistant.core.enums import (
     AnthropicModels,
     OutputMode,
     GoogleModels,
+    OllamaModels,
 )
 
 
@@ -68,6 +69,9 @@ def get_llm_facade(model: str, output_mode: OutputMode = OutputMode.JSON) -> LLM
     elif is_google_model(model):
         api_key = os.getenv("GOOGLE_API_KEY")
         provider = Provider.GOOGLE
+    elif is_ollama_model(model):
+        api_key = os.getenv("OLLAMA_API_KEY")
+        provider = Provider.OLLAMA
     else:
         raise Exception("Invalid model")
 
@@ -84,15 +88,18 @@ def get_available_providers() -> dict:
     openai_api_key = os.getenv("OPENAI_API_KEY")
     anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
     google_api_key = os.getenv("GOOGLE_API_KEY")
+    ollama_api_key = os.getenv("OLLAMA_API_KEY")
 
     openai_present = openai_api_key is not None and len(openai_api_key) > 0
     anthropic_present = anthropic_api_key is not None and len(anthropic_api_key) > 0
     google_present = google_api_key is not None and len(google_api_key) > 0
+    ollama_present = ollama_api_key is not None and len(ollama_api_key) > 0
 
     return {
         "openai": openai_present,
         "anthropic": anthropic_present,
         "google": google_present,
+        "ollama": ollama_present,
     }
 
 
@@ -106,6 +113,9 @@ def is_anthropic_model(model: str) -> bool:
 
 def is_google_model(model: str) -> bool:
     return model in [model.value for model in GoogleModels]
+
+def is_ollama_model(model: str) -> bool:
+    return model in [model.value for model in OllamaModels]
 
 
 def message_history_to_string(message_history: list[MessageItem]) -> str:

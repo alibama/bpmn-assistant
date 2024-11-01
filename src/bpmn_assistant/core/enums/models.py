@@ -14,3 +14,8 @@ class AnthropicModels(Enum):
 class GoogleModels(Enum):
     GEMINI_1_5_FLASH = "gemini-1.5-flash"
     GEMINI_1_5_PRO = "gemini-1.5-pro-exp-0801"
+
+
+class OllamaModels(Enum):
+    LLAMA2 = "llama2"
+    MISTRAL = "mistral"

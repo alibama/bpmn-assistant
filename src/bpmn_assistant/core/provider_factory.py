@@ -2,6 +2,7 @@ from bpmn_assistant.core.provider_impl import (
     AnthropicProvider,
     OpenAIProvider,
     GoogleProvider,
+    OllamaProvider,
 )
 from .enums import Provider, OutputMode
 from .llm_provider import LLMProvider
@@ -19,5 +20,7 @@ class ProviderFactory:
             return AnthropicProvider(api_key, output_mode)
         elif provider == Provider.GOOGLE:
             return GoogleProvider(api_key, output_mode)
+        elif provider == Provider.OLLAMA:
+            return OllamaProvider(api_key, output_mode)
         else:
             raise ValueError(f"Unsupported LLM provider: {provider}")

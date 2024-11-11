@@ -17,6 +17,8 @@ export default {
     return {
       selectedModel: "",
       models: [
+        { value: "llama2", title: "llama2", provider: "ollama" },
+        { value: "mistral", title: "mistral", provider: "ollama" },
         { value: "gpt-4o-mini", title: "GPT-4o mini", provider: "openai" },
         { value: "gpt-4o-2024-08-06", title: "GPT-4o", provider: "openai" },
         {
